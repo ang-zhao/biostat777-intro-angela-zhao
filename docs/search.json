@@ -4,13 +4,27 @@
     "href": "index.html",
     "title": "Angela Zhao",
     "section": "",
-    "text": "Angela Zhao is a first year PhD student in Biostatistics at Johns Hopkins University. Her research interests are functional data analysis/time-series modeling with applications to wearable device and imaging data. Hobbies include bouldering, stand-up comedy, and playing classical music (fun fact: she taught piano for 4 years)."
+    "text": "Angela Zhao is a first year PhD student in Biostatistics at Johns Hopkins University. Her favourite animal is the spherical cow. When reality gets too messy, assume everything is perfectly round and frictionless."
   },
   {
-    "objectID": "education.html",
-    "href": "education.html",
+    "objectID": "about.html",
+    "href": "about.html",
     "title": "About",
     "section": "",
     "text": "Johns Hopkins University\nPhD in Biostatistics (In progress)\nScM in Biostatistics (2024)\nMcGill University\nBS in Joint Honours Computer Science and Biology, Minor in Mathematics (2022)"
+  },
+  {
+    "objectID": "about.html#research-interests",
+    "href": "about.html#research-interests",
+    "title": "About",
+    "section": "Research Interests",
+    "text": "Research Interests\n\nFunctional data analysis/time-series modeling\nDomain-specific applications to wearable device and imaging data"
+  },
+  {
+    "objectID": "about.html#hobbies",
+    "href": "about.html#hobbies",
+    "title": "About",
+    "section": "Hobbies",
+    "text": "Hobbies\n\nBouldering, stand-up comedy, and playing classical music (fun fact: she taught piano for 4 years)."
   }
 ]
