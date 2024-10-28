@@ -1,10 +1,45 @@
 [
   {
+    "objectID": "example_analysis.html",
+    "href": "example_analysis.html",
+    "title": "Example Analysis",
+    "section": "",
+    "text": "# Load libraries\nlibrary(tidyverse)\nlibrary(jsonlite)\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(purrr)\nlibrary(sf)\nlibrary(knitr)\npath = here::here()"
+  },
+  {
+    "objectID": "example_analysis.html#objective",
+    "href": "example_analysis.html#objective",
+    "title": "Example Analysis",
+    "section": "Objective",
+    "text": "Objective\nIn this analysis, we want to understand the mortality trends in Baltimore, focusing on how various socioeconomic factors, such as vehicle availability, internet access, and fast food density, affect mortality rates across different age groups. The target audience for the analysis includes anyone that might be curious about public health and the mortality trends in Baltimore."
+  },
+  {
+    "objectID": "example_analysis.html#data",
+    "href": "example_analysis.html#data",
+    "title": "Example Analysis",
+    "section": "Data",
+    "text": "Data\nThe data for this analysis was sourced from Open Baltimore - a data set from the Baltimore City Health Department. Open Baltimore contains the urls for JSON files containing the data we need. Neighbourhood-specific mortality data for six different age groups (Infant, 1-14, 15-24, 25-44, 45-64, and 65-84) were collected for between 2011 and 2018.\nWe also downloaded socioeconomic data such as Percent of Households with No Vehicle Available, Percent of Households with No Internet at Home, and Fast Food Outlet Density per 1,000 Residents.\nNext, we load the JSON files that were retrieved from the urls in Open Baltimore.\n\n# Load libraries\nlibrary(tidyverse)\n\n# Load raw data\nopen_baltimore = read.csv(\"data/raw/Open Baltimore.csv\")\n\n# Filter data to only include rows that contain the word \"mortality\"\nmortality_data = open_baltimore %>% \n  filter(grepl(\"mortality\", title, ignore.case = TRUE) |\n         grepl(\"mortality\", description, ignore.case = TRUE))\n\n# Download json mortality data\nmortality_urls = paste0(mortality_data$url, \n              \"/0/query?where=1%3D1&outFields=*&outSR=4326&f=json\")\n\n## Helper function to extract ages from the title of each mortality data file\nextract_ages = function(title) {\n  if (!grepl(\"\\\\d+-\\\\d+\", title)) {\n    return(\"infant\")\n  }\n  \n  else {\n    return(stringr::str_extract(title, regex(\"\\\\d+-\\\\d+\")))\n  }\n}\n\nages = mapply(extract_ages, mortality_data$title)\nmortality_filenames = paste0(\"data/json/mortality_\", ages, \".json\")\nmapply(curl::curl_download, urls, filenames)\n\n# Download the data for (1) percentage of households with no vehicles available, \n# (2) percentage of households with no internet at home, and (3) fast food \n# outlet density per 1,000 residents.\n\nsocioeconomic_data = open_baltimore %>% \n  filter(grepl(\"Percent of Households with No Vehicles Available\", title, ignore.case = TRUE) |\n           grepl(\"Percent of Households with No Internet at Home\", title, ignore.case = TRUE) |\n           grepl(\"Fast Food Outlet Density per 1,000 Residents\", title, ignore.case = TRUE))\n\nsocioeconomic_urls = paste0(socioeconomic_data$url, \n              \"/0/query?where=1%3D1&outFields=*&outSR=4326&f=json\")\n\nsocioeconomic_filenames = c(\"data/json/fastfood.json\", \"data/json/no_vehicles.json\", \"data/json/no_internet.json\")\nmapply(curl::curl_download, urls, filenames)\n\nAfter loading the data, we extract important features, such as mortality rate and transform the data to long format for visualization. An example of how this is done is below.\n\n# Function to extract attributes from the JSON structure\nextract_attributes <- function(json_data) {\n  map_df(json_data$features, ~ .x$attributes)\n}\n\n# Read mortality data for each age group\nmortality_infant <- read_json(paste0(path,\"/data/json/mortality_infant.json\")) %>% extract_attributes()\nmortality_1_14 <- read_json(paste0(path, \"/data/json/mortality_1-14.json\")) %>% extract_attributes()\nmortality_15_24 <- read_json(paste0(path, \"/data/json/mortality_15-24.json\")) %>% extract_attributes()\nmortality_25_44 <- read_json(paste0(path, \"/data/json/mortality_25-44.json\")) %>% extract_attributes()\nmortality_45_64 <- read_json(paste0(path, \"/data/json/mortality_45-64.json\")) %>% extract_attributes()\nmortality_65_84 <- read_json(paste0(path, \"/data/json/mortality_65-84.json\")) %>% extract_attributes()\n\n# Read predictor data (e.g., no internet, no vehicles, fast food)\nno_internet <- read_json(paste0(path, \"/data/json/no_internet.json\")) %>% extract_attributes()\nno_vehicles <- read_json(paste0(path, \"/data/json/no_vehicles.json\")) %>% extract_attributes()\nfast_food <- read_json(paste0(path, \"/data/json/fastfood.json\")) %>% extract_attributes()\n\n# Reshape data to long format for plotting\nreshape_to_long = function(data, age_group, prefix, value) {\n  data %>%\n    select(CSA2010, starts_with(prefix)) %>%\n    pivot_longer(cols = starts_with(prefix), names_to = \"year\", values_to = paste0(value, \"_rate\")) %>%\n    mutate(year = as.integer(str_extract(year, \"\\\\d+$\")),\n           age_group = age_group)\n  # data$mean = rep(mean(data$morality_rate), nrow(data))\n}\n\nmortality_data <- bind_rows(\n  reshape_to_long(mortality_infant, \"Infant\", \"mort1\", \"mort\"),\n  reshape_to_long(mortality_1_14, \"1-14\", \"mort14\", \"mort\"),\n  reshape_to_long(mortality_15_24, \"15-24\", \"mort24\", \"mort\"),\n  reshape_to_long(mortality_25_44, \"25-44\", \"mort44\", \"mort\"),\n  reshape_to_long(mortality_45_64, \"45-64\", \"mort64\", \"mort\"),\n  reshape_to_long(mortality_65_84, \"65-84\", \"mort84\", \"mort\"))\nmortality_data$year = mortality_data$year + 2000\nmean_mortality = mortality_data %>% group_by(age_group, year) %>% summarise(mean_mort = mean(mort_rate, na.rm = TRUE))\n\n`summarise()` has grouped output by 'age_group'. You can override using the\n`.groups` argument.\n\n\nAfter reading in theh JSON files and extracting our desired features, the data dictionary looks like this.\n\nhead(mortality_data)\n\n# A tibble: 6 × 4\n  CSA2010                        year mort_rate age_group\n  <chr>                         <dbl>     <dbl> <chr>    \n1 Allendale/Irvington/S. Hilton  2011     14.8  Infant   \n2 Allendale/Irvington/S. Hilton  2012     16.9  Infant   \n3 Allendale/Irvington/S. Hilton  2013     14.1  Infant   \n4 Allendale/Irvington/S. Hilton  2014     11.4  Infant   \n5 Allendale/Irvington/S. Hilton  2015     10.6  Infant   \n6 Allendale/Irvington/S. Hilton  2016      8.99 Infant   \n\n\n\n\n\n\nsource\ndictionary\n5 functions from tidyr/dplyr\n3 plots using 3 different geoms; titles, subtitles, captions, human-understandable axisone image or table\nat least 1 plot using facet grid/wrap\nOne image or tabel, saved from web\nTwo different callout blocks\n.bib file with 3 citations\n1 margin content"
+  },
+  {
+    "objectID": "example_analysis.html#results",
+    "href": "example_analysis.html#results",
+    "title": "Example Analysis",
+    "section": "Results",
+    "text": "Results\n\nsummarize in 4-6 sentences"
+  },
+  {
+    "objectID": "example_analysis.html#functions-used",
+    "href": "example_analysis.html#functions-used",
+    "title": "Example Analysis",
+    "section": "Functions used",
+    "text": "Functions used\nggplot2 :\ntidyr :\ndplyr :"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Angela Zhao",
     "section": "",
-    "text": "Angela Zhao is a first year PhD student in Biostatistics at Johns Hopkins University. Her favourite animal is the spherical cow. When reality gets too messy, assume everything is perfectly round and frictionless."
+    "text": "Angela Zhao is a first year PhD student in Biostatistics at Johns Hopkins University. Her favourite animal is the spherical cow. When reality gets too messy, assume everything is perfectly round and frictionless.\nSpherical cow image retrieved from Wikipedia on October 27th, 2024."
   },
   {
     "objectID": "about.html",

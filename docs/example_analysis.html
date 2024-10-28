@@ -20,6 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -102,7 +165,16 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#objective" id="toc-objective" class="nav-link active" data-scroll-target="#objective">Objective</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#functions-used" id="toc-functions-used" class="nav-link" data-scroll-target="#functions-used">Functions used</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -124,8 +196,160 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>path <span class="ot">=</span> here<span class="sc">::</span><span class="fu">here</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="objective" class="level2">
+<h2 class="anchored" data-anchor-id="objective">Objective</h2>
+<p>In this analysis, we want to understand the mortality trends in Baltimore, focusing on how various socioeconomic factors, such as vehicle availability, internet access, and fast food density, affect mortality rates across different age groups. The target audience for the analysis includes anyone that might be curious about public health and the mortality trends in Baltimore.</p>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>The data for this analysis was sourced from <a href="https://data.baltimorecity.gov/search?q=*.">Open Baltimore</a> - a data set from the Baltimore City Health Department. Open Baltimore contains the urls for JSON files containing the data we need. Neighbourhood-specific mortality data for six different age groups (Infant, 1-14, 15-24, 25-44, 45-64, and 65-84) were collected for between 2011 and 2018.</p>
+<p>We also downloaded socioeconomic data such as Percent of Households with No Vehicle Available, Percent of Households with No Internet at Home, and Fast Food Outlet Density per 1,000 Residents.</p>
+<p>Next, we load the JSON files that were retrieved from the urls in Open Baltimore.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load raw data</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>open_baltimore <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"data/raw/Open Baltimore.csv"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter data to only include rows that contain the word "mortality"</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>mortality_data <span class="ot">=</span> open_baltimore <span class="sc">%&gt;%</span> </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"mortality"</span>, title, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>) <span class="sc">|</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>         <span class="fu">grepl</span>(<span class="st">"mortality"</span>, description, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Download json mortality data</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>mortality_urls <span class="ot">=</span> <span class="fu">paste0</span>(mortality_data<span class="sc">$</span>url, </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>              <span class="st">"/0/query?where=1%3D1&amp;outFields=*&amp;outSR=4326&amp;f=json"</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Helper function to extract ages from the title of each mortality data file</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>extract_ages <span class="ot">=</span> <span class="cf">function</span>(title) {</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">d+-</span><span class="sc">\\</span><span class="st">d+"</span>, title)) {</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"infant"</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> {</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(stringr<span class="sc">::</span><span class="fu">str_extract</span>(title, <span class="fu">regex</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">d+-</span><span class="sc">\\</span><span class="st">d+"</span>)))</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>ages <span class="ot">=</span> <span class="fu">mapply</span>(extract_ages, mortality_data<span class="sc">$</span>title)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>mortality_filenames <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">"data/json/mortality_"</span>, ages, <span class="st">".json"</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="fu">mapply</span>(curl<span class="sc">::</span>curl_download, urls, filenames)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the data for (1) percentage of households with no vehicles available, </span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co"># (2) percentage of households with no internet at home, and (3) fast food </span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co"># outlet density per 1,000 residents.</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>socioeconomic_data <span class="ot">=</span> open_baltimore <span class="sc">%&gt;%</span> </span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"Percent of Households with No Vehicles Available"</span>, title, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>) <span class="sc">|</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>           <span class="fu">grepl</span>(<span class="st">"Percent of Households with No Internet at Home"</span>, title, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>) <span class="sc">|</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>           <span class="fu">grepl</span>(<span class="st">"Fast Food Outlet Density per 1,000 Residents"</span>, title, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>socioeconomic_urls <span class="ot">=</span> <span class="fu">paste0</span>(socioeconomic_data<span class="sc">$</span>url, </span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>              <span class="st">"/0/query?where=1%3D1&amp;outFields=*&amp;outSR=4326&amp;f=json"</span>)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>socioeconomic_filenames <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"data/json/fastfood.json"</span>, <span class="st">"data/json/no_vehicles.json"</span>, <span class="st">"data/json/no_internet.json"</span>)</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="fu">mapply</span>(curl<span class="sc">::</span>curl_download, urls, filenames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After loading the data, we extract important features, such as mortality rate and transform the data to long format for visualization. An example of how this is done is below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to extract attributes from the JSON structure</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>extract_attributes <span class="ot">&lt;-</span> <span class="cf">function</span>(json_data) {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_df</span>(json_data<span class="sc">$</span>features, <span class="sc">~</span> .x<span class="sc">$</span>attributes)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Read mortality data for each age group</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>mortality_infant <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="fu">paste0</span>(path,<span class="st">"/data/json/mortality_infant.json"</span>)) <span class="sc">%&gt;%</span> <span class="fu">extract_attributes</span>()</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>mortality_1_14 <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="fu">paste0</span>(path, <span class="st">"/data/json/mortality_1-14.json"</span>)) <span class="sc">%&gt;%</span> <span class="fu">extract_attributes</span>()</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>mortality_15_24 <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="fu">paste0</span>(path, <span class="st">"/data/json/mortality_15-24.json"</span>)) <span class="sc">%&gt;%</span> <span class="fu">extract_attributes</span>()</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>mortality_25_44 <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="fu">paste0</span>(path, <span class="st">"/data/json/mortality_25-44.json"</span>)) <span class="sc">%&gt;%</span> <span class="fu">extract_attributes</span>()</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>mortality_45_64 <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="fu">paste0</span>(path, <span class="st">"/data/json/mortality_45-64.json"</span>)) <span class="sc">%&gt;%</span> <span class="fu">extract_attributes</span>()</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>mortality_65_84 <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="fu">paste0</span>(path, <span class="st">"/data/json/mortality_65-84.json"</span>)) <span class="sc">%&gt;%</span> <span class="fu">extract_attributes</span>()</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Read predictor data (e.g., no internet, no vehicles, fast food)</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>no_internet <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="fu">paste0</span>(path, <span class="st">"/data/json/no_internet.json"</span>)) <span class="sc">%&gt;%</span> <span class="fu">extract_attributes</span>()</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>no_vehicles <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="fu">paste0</span>(path, <span class="st">"/data/json/no_vehicles.json"</span>)) <span class="sc">%&gt;%</span> <span class="fu">extract_attributes</span>()</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>fast_food <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="fu">paste0</span>(path, <span class="st">"/data/json/fastfood.json"</span>)) <span class="sc">%&gt;%</span> <span class="fu">extract_attributes</span>()</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape data to long format for plotting</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>reshape_to_long <span class="ot">=</span> <span class="cf">function</span>(data, age_group, prefix, value) {</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(CSA2010, <span class="fu">starts_with</span>(prefix)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(prefix), <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="fu">paste0</span>(value, <span class="st">"_rate"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">as.integer</span>(<span class="fu">str_extract</span>(year, <span class="st">"</span><span class="sc">\\</span><span class="st">d+$"</span>)),</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>           <span class="at">age_group =</span> age_group)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># data$mean = rep(mean(data$morality_rate), nrow(data))</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>mortality_data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reshape_to_long</span>(mortality_infant, <span class="st">"Infant"</span>, <span class="st">"mort1"</span>, <span class="st">"mort"</span>),</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reshape_to_long</span>(mortality_1_14, <span class="st">"1-14"</span>, <span class="st">"mort14"</span>, <span class="st">"mort"</span>),</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reshape_to_long</span>(mortality_15_24, <span class="st">"15-24"</span>, <span class="st">"mort24"</span>, <span class="st">"mort"</span>),</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reshape_to_long</span>(mortality_25_44, <span class="st">"25-44"</span>, <span class="st">"mort44"</span>, <span class="st">"mort"</span>),</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reshape_to_long</span>(mortality_45_64, <span class="st">"45-64"</span>, <span class="st">"mort64"</span>, <span class="st">"mort"</span>),</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reshape_to_long</span>(mortality_65_84, <span class="st">"65-84"</span>, <span class="st">"mort84"</span>, <span class="st">"mort"</span>))</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>mortality_data<span class="sc">$</span>year <span class="ot">=</span> mortality_data<span class="sc">$</span>year <span class="sc">+</span> <span class="dv">2000</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>mean_mortality <span class="ot">=</span> mortality_data <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(age_group, year) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mean_mort =</span> <span class="fu">mean</span>(mort_rate, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'age_group'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+</div>
+<p>After reading in theh JSON files and extracting our desired features, the data dictionary looks like this.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mortality_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  CSA2010                        year mort_rate age_group
+  &lt;chr&gt;                         &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;    
+1 Allendale/Irvington/S. Hilton  2011     14.8  Infant   
+2 Allendale/Irvington/S. Hilton  2012     16.9  Infant   
+3 Allendale/Irvington/S. Hilton  2013     14.1  Infant   
+4 Allendale/Irvington/S. Hilton  2014     11.4  Infant   
+5 Allendale/Irvington/S. Hilton  2015     10.6  Infant   
+6 Allendale/Irvington/S. Hilton  2016      8.99 Infant   </code></pre>
+</div>
+</div>
+<div class="cell">
+
+</div>
+<ul>
+<li><p>source</p></li>
+<li><p>dictionary</p></li>
+<li><p>5 functions from tidyr/dplyr</p></li>
+<li><p>3 plots using 3 different geoms; titles, subtitles, captions, human-understandable axisone image or table</p></li>
+<li><p>at least 1 plot using facet grid/wrap</p></li>
+<li><p>One image or tabel, saved from web</p></li>
+<li><p>Two different callout blocks</p></li>
+<li><p>.bib file with 3 citations</p></li>
+<li><p>1 margin content</p></li>
+</ul>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<ul>
+<li>summarize in 4-6 sentences</li>
+</ul>
+</section>
+<section id="functions-used" class="level2">
+<h2 class="anchored" data-anchor-id="functions-used">Functions used</h2>
+<p><code>ggplot2</code> :</p>
+<p><code>tidyr</code> :</p>
+<p><code>dplyr</code> :</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
