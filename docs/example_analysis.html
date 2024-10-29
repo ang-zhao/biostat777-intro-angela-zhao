@@ -396,21 +396,6 @@ div.csl-indent {
 <section id="results" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
 <p>We used a variety of plots to visualize the relationships between socioeconomic covariates and mortality rates over time and across age groups. Scatter plots and trend lines were used to show correlations, and spatial maps were generated to highlight geographical variations in mortality.</p>
-<div class="callout-tip callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Useful packages
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Here is a list of core functions that were used in the analysis: <code>ggplot2</code> : <code>geom_histogram()</code>, <code>geom_jitter()</code>, <code>geom_line()</code></p>
-<p><code>tidyr</code> : <code>pivot_longer()</code></p>
-<p><code>dplyr</code> : <code>group_by()</code>, <code>mutate()</code>, <code>select()</code>, <code>summarise()</code></p>
-</div>
-</div>
 <section id="mortality-over-time-by-age-group" class="level4">
 <h4 class="anchored" data-anchor-id="mortality-over-time-by-age-group">Mortality Over Time by Age Group</h4>
 <p><a href="#fig-1">Figure&nbsp;1</a> visualizes mortality rates across multiple age groups (Infant, 1-14, 15-24, 25-44, 45-64, and 65-84) from 2011 to 2018.</p>
@@ -510,7 +495,7 @@ Useful packages
 </div>
 </div></div></div>
 <div class="callout-note callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -519,7 +504,7 @@ Description of the distributions of sociodemographic features.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li><p>Fast Food Outlet Density: The distribution is heavily skewed towards low fast food density per 1,000 residents with a few outliers.</p></li>
@@ -529,17 +514,17 @@ Description of the distributions of sociodemographic features.
 </div>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Note
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Note that the caption in each panel summarizes some insights about the figure.</p>
+<p>Click on each panel to see the plot. The figure caption summarizes some key insights.</p>
 </div>
 </div>
 <div class="panel-tabset">
@@ -658,17 +643,6 @@ Note
 </div>
 </div>
 </div>
-<ul>
-<li><p>source</p></li>
-<li><p>dictionary</p></li>
-<li><p>5 functions from tidyr/dplyr</p></li>
-<li><p>3 plots using 3 different geoms; titles, subtitles, captions, human-understandable axisone image or table</p></li>
-<li><p>at least 1 plot using facet grid/wrap</p></li>
-<li><p>One image or tabel, saved from web</p></li>
-<li><p>Two different callout blocks</p></li>
-<li><p>.bib file with 3 citations</p></li>
-<li><p>1 margin content</p></li>
-</ul>
 </section>
 </section>
 <section id="results-1" class="level2">
@@ -677,6 +651,22 @@ Note
 <p>The socioeconomic associations with mortality rates can motivate important public health considerations. Although fast food density appears to have little association with mortality rate, there are clear associations between lower rates of home internet access and vehicle availability with higher mortality rate. The trend is less clear in infant and 1-14 age groups, potentially because these populations are less likely to rely on internet and vehicles in their daily life. Furthermore, these populations have very low mortality rates. Primary drivers of youth mortality may be due to issues other than the socioeconomic covariates we tested. Furthermore, in the 65-84 population, the associations are also less apparent. This can be, in part, explained by the fact that health conditions related to old age may have a stronger impact on mortality rates than socioeconomic conditions.</p>
 <p>Some limitations of the study include that this analysis relies on correlation data and cannot make causal inferences. Further research should explore causal pathways and investigate additional socioeconomic factors that may contribute to the observed disparities in mortality.</p>
 <p>This analysis highlights the complex interplay between socioeconomic factors and mortality rates across Baltimore. By focusing on both geographic and temporal trends, we have identified critical areas where public health interventions may be most effective in reducing mortality rates and addressing health disparities.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Useful packages
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Here is a list of core functions that were used in the analysis:</p>
+<p><code>ggplot2</code> : <code>geom_histogram()</code>, <code>geom_jitter()</code>, <code>geom_line()</code></p>
+<p><code>tidyr</code> : <code>pivot_longer()</code></p>
+<p><code>dplyr</code> : <code>group_by()</code>, <code>mutate()</code>, <code>select()</code>, <code>summarise()</code></p>
+</div>
+</div>
 
 
 <!-- -->
@@ -1037,17 +1027,6 @@ kable(head(mortality_data))
 
 We used a variety of plots to visualize the relationships between socioeconomic covariates and mortality rates over time and across age groups. Scatter plots and trend lines were used to show correlations, and spatial maps were generated to highlight geographical variations in mortality.
 
-::: {.callout-tip}
-## Useful packages
-
-Here is a list of core functions that were used in the analysis: 
-`ggplot2` : `geom_histogram()`, `geom_jitter()`, `geom_line()`
-
-`tidyr` : `pivot_longer()`
-
-`dplyr` : `group_by()`, `mutate()`, `select()`, `summarise()`
-:::
-
 #### Mortality Over Time by Age Group
 
 @fig-1 visualizes mortality rates across multiple age groups (Infant, 1-14, 15-24, 25-44, 45-64, and 65-84) from 2011 to 2018.
@@ -1149,8 +1128,8 @@ gridExtra::grid.arrange(D1, D2, D3, ncol = 1)
 - Percentage of Households with No Vehicles Availabile: A notable percentage of households lack vehicle access, with the median falling around 30% and some areas reaching over 60%.
 :::
 
-::: {.callout-note}
-Note that the caption in each panel summarizes some insights about the figure.
+::: {.callout-tip}
+Click on each panel to see the plot. The figure caption summarizes some key insights.
 :::
 
 :::: panel-tabset
@@ -1243,26 +1222,6 @@ ggplot(novhcl_mortality_data, aes(x = mort_rate, y = novhcl_rate, color = as.fac
 knitr::include_graphics(paste0(path,"/mortality_maps.png"))
 ```
 
-
-
--   source
-
--   dictionary
-
--   5 functions from tidyr/dplyr
-
--   3 plots using 3 different geoms; titles, subtitles, captions, human-understandable axisone image or table
-
--   at least 1 plot using facet grid/wrap
-
--   One image or tabel, saved from web
-
--   Two different callout blocks
-
--   .bib file with 3 citations
-
--   1 margin content
-
 ## Results
 
 The findings highlight significant spatial, temporal, and socioeconomic disparities in mortality rates across Baltimore. Key correlations emerged between mortality and the availability of vehicles, internet access, and fast food density, particularly among older age groups.
@@ -1272,7 +1231,18 @@ The socioeconomic associations with mortality rates can motivate important publi
 Some limitations of the study include that this analysis relies on correlation data and cannot make causal inferences. Further research should explore causal pathways and investigate additional socioeconomic factors that may contribute to the observed disparities in mortality.
 
 This analysis highlights the complex interplay between socioeconomic factors and mortality rates across Baltimore. By focusing on both geographic and temporal trends, we have identified critical areas where public health interventions may be most effective in reducing mortality rates and addressing health disparities.
-</code></pre>
+
+::: {.callout-tip}
+## Useful packages
+
+Here is a list of core functions that were used in the analysis: 
+
+`ggplot2` : `geom_histogram()`, `geom_jitter()`, `geom_line()`
+
+`tidyr` : `pivot_longer()`
+
+`dplyr` : `group_by()`, `mutate()`, `select()`, `summarise()`
+:::</code></pre>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
