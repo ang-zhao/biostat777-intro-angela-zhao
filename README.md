@@ -2,4 +2,4 @@ Author: Angela Zhao
 
 Website link: https://ang-zhao.github.io/biostat777-intro-angela-zhao/
 
-*Deployed using Github Pages, November 8th, 2024.*
+*Deployed using Github Pages, October 29th, 2024.*
