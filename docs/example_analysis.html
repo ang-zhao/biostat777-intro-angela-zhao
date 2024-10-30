@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.247">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Angela’s Spherical Cow - Example Analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="floating nav-fixed slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Angela’s Spherical Cow</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./example_analysis.html" aria-current="page">
+ <span class="menu-text">Example analysis</span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#objective" id="toc-objective" class="nav-link active" data-scroll-target="#objective">Objective</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
+  <ul class="collapse">
+  <li><a href="#spatial-distribution-of-mortality-rates-by-year-and-age-group" id="toc-spatial-distribution-of-mortality-rates-by-year-and-age-group" class="nav-link" data-scroll-target="#spatial-distribution-of-mortality-rates-by-year-and-age-group">Spatial Distribution of Mortality Rates by Year and Age Group</a></li>
+  </ul></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  </ul>
+</nav>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content page-columns page-full column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Example Analysis</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Each figure is preceded by a <code>&gt; Code</code> tab which contains all the code to produce the figure. Alternatively, to uncollapse all code, please click on the <code>&lt;/&gt; CODE</code> tab and select “SHOW ALL CODE”.</p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>path <span class="ot">=</span> here<span class="sc">::</span><span class="fu">here</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="objective" class="level2">
+<h2 class="anchored" data-anchor-id="objective">Objective</h2>
+<p>Several studies have found that socioecomonic disadvantage was associated with premature mortality <span class="citation" data-cites="glei2022 lawrence2024">(<a href="#ref-glei2022" role="doc-biblioref">Glei, Lee, and Weinstein 2022</a>; <a href="#ref-lawrence2024" role="doc-biblioref">Lawrence, Kucharaska-Newton, and Magnani 2024</a>)</span>. This result highlights the need to further study the impacts of socioeconomic status on life course and mortality. In this analysis, we focus on the mortality trends in Baltimore and how various socioeconomic factors, such as vehicle availability, internet access, and fast food density, affect mortality rates across different age groups. The target audience for the analysis includes anyone that might be curious about public health and the mortality trends in Baltimore.</p>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>The data for this analysis was sourced from <a href="https://data.baltimorecity.gov/search?q=*.">Open Baltimore</a> <span class="citation" data-cites="baltimore_data">(<a href="#ref-baltimore_data" role="doc-biblioref">Baltimore City 2024</a>)</span> - a data set from the Baltimore City Health Department. Open Baltimore contains the urls for JSON files containing the data we need. Neighbourhood-specific mortality data for six different age groups (Infant, 1-14, 15-24, 25-44, 45-64, and 65-84) were collected for between 2011 and 2018.</p>
+<p>We also downloaded socioeconomic data such as Percent of Households with No Vehicle Available, Percent of Households with No Internet at Home, and Fast Food Outlet Density per 1,000 Residents.</p>
+<p>Next, we load the JSON files that were retrieved from the urls in Open Baltimore.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load raw data</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>open_baltimore <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"data/raw/Open Baltimore.csv"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter data to only include rows that contain the word "mortality"</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>mortality_data <span class="ot">=</span> open_baltimore <span class="sc">%&gt;%</span> </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"mortality"</span>, title, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>) <span class="sc">|</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>         <span class="fu">grepl</span>(<span class="st">"mortality"</span>, description, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Download json mortality data</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>mortality_urls <span class="ot">=</span> <span class="fu">paste0</span>(mortality_data<span class="sc">$</span>url, </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>              <span class="st">"/0/query?where=1%3D1&amp;outFields=*&amp;outSR=4326&amp;f=json"</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Helper function to extract ages from the title of each mortality data file</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>extract_ages <span class="ot">=</span> <span class="cf">function</span>(title) {</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">d+-</span><span class="sc">\\</span><span class="st">d+"</span>, title)) {</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"infant"</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> {</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(stringr<span class="sc">::</span><span class="fu">str_extract</span>(title, <span class="fu">regex</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">d+-</span><span class="sc">\\</span><span class="st">d+"</span>)))</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>ages <span class="ot">=</span> <span class="fu">mapply</span>(extract_ages, mortality_data<span class="sc">$</span>title)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>mortality_filenames <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">"data/json/mortality_"</span>, ages, <span class="st">".json"</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="fu">mapply</span>(curl<span class="sc">::</span>curl_download, urls, filenames)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the data for (1) percentage of households with no vehicles available, </span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co"># (2) percentage of households with no internet at home, and (3) fast food </span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co"># outlet density per 1,000 residents.</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>socioeconomic_data <span class="ot">=</span> open_baltimore <span class="sc">%&gt;%</span> </span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"Percent of Households with No Vehicles Available"</span>, title, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>) <span class="sc">|</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>           <span class="fu">grepl</span>(<span class="st">"Percent of Households with No Internet at Home"</span>, title, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>) <span class="sc">|</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>           <span class="fu">grepl</span>(<span class="st">"Fast Food Outlet Density per 1,000 Residents"</span>, title, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>socioeconomic_urls <span class="ot">=</span> <span class="fu">paste0</span>(socioeconomic_data<span class="sc">$</span>url, </span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>              <span class="st">"/0/query?where=1%3D1&amp;outFields=*&amp;outSR=4326&amp;f=json"</span>)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>socioeconomic_filenames <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"data/json/fastfood.json"</span>, <span class="st">"data/json/no_vehicles.json"</span>, <span class="st">"data/json/no_internet.json"</span>)</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="fu">mapply</span>(curl<span class="sc">::</span>curl_download, urls, filenames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>After loading the data, we extract important features, such as mortality rate and transform the data to long format for visualization. An example of how this is done is below.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to extract attributes from the JSON structure</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>extract_attributes <span class="ot">&lt;-</span> <span class="cf">function</span>(json_data) {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_df</span>(json_data<span class="sc">$</span>features, <span class="sc">~</span> .x<span class="sc">$</span>attributes)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Read mortality data for each age group</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>mortality_infant <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="fu">paste0</span>(path,<span class="st">"/data/json/mortality_infant.json"</span>)) <span class="sc">%&gt;%</span> <span class="fu">extract_attributes</span>()</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>mortality_1_14 <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="fu">paste0</span>(path, <span class="st">"/data/json/mortality_1-14.json"</span>)) <span class="sc">%&gt;%</span> <span class="fu">extract_attributes</span>()</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>mortality_15_24 <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="fu">paste0</span>(path, <span class="st">"/data/json/mortality_15-24.json"</span>)) <span class="sc">%&gt;%</span> <span class="fu">extract_attributes</span>()</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>mortality_25_44 <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="fu">paste0</span>(path, <span class="st">"/data/json/mortality_25-44.json"</span>)) <span class="sc">%&gt;%</span> <span class="fu">extract_attributes</span>()</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>mortality_45_64 <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="fu">paste0</span>(path, <span class="st">"/data/json/mortality_45-64.json"</span>)) <span class="sc">%&gt;%</span> <span class="fu">extract_attributes</span>()</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>mortality_65_84 <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="fu">paste0</span>(path, <span class="st">"/data/json/mortality_65-84.json"</span>)) <span class="sc">%&gt;%</span> <span class="fu">extract_attributes</span>()</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Read predictor data (e.g., no internet, no vehicles, fast food)</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>no_internet <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="fu">paste0</span>(path, <span class="st">"/data/json/no_internet.json"</span>)) <span class="sc">%&gt;%</span> <span class="fu">extract_attributes</span>()</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>no_vehicles <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="fu">paste0</span>(path, <span class="st">"/data/json/no_vehicles.json"</span>)) <span class="sc">%&gt;%</span> <span class="fu">extract_attributes</span>()</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>fast_food <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="fu">paste0</span>(path, <span class="st">"/data/json/fastfood.json"</span>)) <span class="sc">%&gt;%</span> <span class="fu">extract_attributes</span>()</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape data to long format for plotting</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>reshape_to_long <span class="ot">=</span> <span class="cf">function</span>(data, age_group, prefix, value) {</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(CSA2010, <span class="fu">starts_with</span>(prefix)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(prefix), <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="fu">paste0</span>(value, <span class="st">"_rate"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">as.integer</span>(<span class="fu">str_extract</span>(year, <span class="st">"</span><span class="sc">\\</span><span class="st">d+$"</span>)),</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>           <span class="at">age_group =</span> age_group)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># data$mean = rep(mean(data$morality_rate), nrow(data))</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>mortality_data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reshape_to_long</span>(mortality_infant, <span class="st">"Infant"</span>, <span class="st">"mort1"</span>, <span class="st">"mort"</span>),</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reshape_to_long</span>(mortality_1_14, <span class="st">"1-14"</span>, <span class="st">"mort14"</span>, <span class="st">"mort"</span>),</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reshape_to_long</span>(mortality_15_24, <span class="st">"15-24"</span>, <span class="st">"mort24"</span>, <span class="st">"mort"</span>),</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reshape_to_long</span>(mortality_25_44, <span class="st">"25-44"</span>, <span class="st">"mort44"</span>, <span class="st">"mort"</span>),</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reshape_to_long</span>(mortality_45_64, <span class="st">"45-64"</span>, <span class="st">"mort64"</span>, <span class="st">"mort"</span>),</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reshape_to_long</span>(mortality_65_84, <span class="st">"65-84"</span>, <span class="st">"mort84"</span>, <span class="st">"mort"</span>))</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>mortality_data<span class="sc">$</span>year <span class="ot">=</span> mortality_data<span class="sc">$</span>year <span class="sc">+</span> <span class="dv">2000</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>mean_mortality <span class="ot">=</span> mortality_data <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(age_group, year) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mean_mort =</span> <span class="fu">mean</span>(mort_rate, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>After reading in theh JSON files and extracting our desired features, the data dictionary looks like this.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(mortality_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">CSA2010</th>
+<th style="text-align: right;">year</th>
+<th style="text-align: right;">mort_rate</th>
+<th style="text-align: left;">age_group</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Allendale/Irvington/S. Hilton</td>
+<td style="text-align: right;">2011</td>
+<td style="text-align: right;">14.785992</td>
+<td style="text-align: left;">Infant</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Allendale/Irvington/S. Hilton</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">16.935484</td>
+<td style="text-align: left;">Infant</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Allendale/Irvington/S. Hilton</td>
+<td style="text-align: right;">2013</td>
+<td style="text-align: right;">14.143095</td>
+<td style="text-align: left;">Infant</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Allendale/Irvington/S. Hilton</td>
+<td style="text-align: right;">2014</td>
+<td style="text-align: right;">11.373578</td>
+<td style="text-align: left;">Infant</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Allendale/Irvington/S. Hilton</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: right;">10.610080</td>
+<td style="text-align: left;">Infant</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Allendale/Irvington/S. Hilton</td>
+<td style="text-align: right;">2016</td>
+<td style="text-align: right;">8.992806</td>
+<td style="text-align: left;">Infant</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="results" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<p>We used a variety of plots to visualize the relationships between socioeconomic covariates and mortality rates over time and across age groups. Scatter plots and trend lines were used to show correlations, and spatial maps were generated to highlight geographical variations in mortality.</p>
+<section id="mortality-over-time-by-age-group" class="level4">
+<h4 class="anchored" data-anchor-id="mortality-over-time-by-age-group">Mortality Over Time by Age Group</h4>
+<p><a href="#fig-1">Figure&nbsp;1</a> visualizes mortality rates across multiple age groups (Infant, 1-14, 15-24, 25-44, 45-64, and 65-84) from 2011 to 2018.</p>
+<p>We notice that…</p>
+<ul>
+<li><p>Infant Mortality: While lower than the older age groups, there are notable spikes in infant mortality, particularly in 2016.</p></li>
+<li><p>Youth (1-14 and 15-24): These groups maintain relatively low mortality rates over time.</p></li>
+<li><p>Older Age Groups (45-64 and 65-84): These groups consistently exhibit higher mortality rates compared to younger groups. The mortality rate in these groups shows some fluctuations, but overall, the trend remains stable over time.</p></li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot mortality rates for each age group over time</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mortality_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(year), <span class="at">y =</span> mort_rate, <span class="at">color =</span> age_group)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> mean_mortality, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(year), <span class="at">y =</span> mean_mort, <span class="at">group =</span> age_group), <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age_group, <span class="at">scales =</span> <span class="st">"free"</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Mortality Rate Over Time"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Stratefied by Age Group"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Mortality Rate"</span>) <span class="sc">+</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="st">"Age Group"</span>, <span class="at">palette =</span> <span class="st">"Blues"</span>) <span class="sc">+</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(.<span class="dv">77</span>,.<span class="dv">98</span>), </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.direction =</span><span class="st">"horizontal"</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.background =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text =</span> <span class="fu">element_blank</span>()) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="example_analysis_files/figure-html/fig-1-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: Mortality Over Time by Age Group</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="socioeconomic-covariates-vs.-mortality-rates" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="socioeconomic-covariates-vs.-mortality-rates">Socioeconomic Covariates vs.&nbsp;Mortality Rates</h4>
+<p>In the margins, we show the distributions of each socioeconomic covariate across Baltimore neighbourhoods. The panels below illustrate the relationships between each of the socioeconomic covariates and mortality rates, stratified by age group. For each covariate, we isolated the data to years where mortality data was also reported.</p>
+<div class="cell page-columns page-full">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Adding covariates to data frame</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>fastfd_data <span class="ot">=</span> <span class="fu">reshape_to_long</span>(fast_food[,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="st">""</span>, <span class="st">"Fastfd"</span>, <span class="st">"fastfd"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(<span class="at">select =</span> <span class="sc">-</span><span class="fu">c</span>(age_group))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>fastfd_data<span class="sc">$</span>year <span class="ot">=</span> fastfd_data<span class="sc">$</span>year <span class="sc">+</span> <span class="dv">2000</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>fastfd_mortality_data <span class="ot">=</span> <span class="fu">inner_join</span>(mortality_data, fastfd_data, </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"CSA2010"</span>, <span class="st">"year"</span>)) </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>nohhint_data <span class="ot">=</span> <span class="fu">reshape_to_long</span>(no_internet[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="st">""</span>, <span class="st">"nohhint"</span>, <span class="st">"nohhint"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(<span class="at">select =</span> <span class="sc">-</span><span class="fu">c</span>(age_group))</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>nohhint_data<span class="sc">$</span>year <span class="ot">=</span> nohhint_data<span class="sc">$</span>year <span class="sc">+</span> <span class="dv">2000</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>nohhint_mortality_data <span class="ot">=</span> <span class="fu">inner_join</span>(mortality_data, nohhint_data, </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"CSA2010"</span>, <span class="st">"year"</span>)) </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>novhcl_data <span class="ot">=</span> <span class="fu">reshape_to_long</span>(no_vehicles[,<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="st">""</span>, <span class="st">"novhcl"</span>, <span class="st">"novhcl"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(<span class="at">select =</span> <span class="sc">-</span><span class="fu">c</span>(age_group))</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>novhcl_data<span class="sc">$</span>year <span class="ot">=</span> novhcl_data<span class="sc">$</span>year <span class="sc">+</span> <span class="dv">2000</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>novhcl_mortality_data <span class="ot">=</span> <span class="fu">inner_join</span>(mortality_data, novhcl_data, </span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"CSA2010"</span>, <span class="st">"year"</span>)) </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot distribution of fast food density</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>D1 <span class="ot">=</span> <span class="fu">ggplot</span>(fastfd_data, <span class="fu">aes</span>(<span class="at">x =</span> fastfd_rate)) <span class="sc">+</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..), <span class="at">bins =</span> <span class="dv">50</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">fill =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Fast Food Outlet Density per 1,000 Residents"</span>,</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Fast Food Outlet Density per 1,000 Residents"</span>,</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>) </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot distribution of percentage of households with no internet</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>D2 <span class="ot">=</span> <span class="fu">ggplot</span>(nohhint_data, <span class="fu">aes</span>(<span class="at">x =</span> nohhint_rate)) <span class="sc">+</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..), <span class="at">bins =</span> <span class="dv">50</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">fill =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Percent of Households with No Internet at Home"</span>,</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Percent of Households with No Internet at Home"</span>,</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>) </span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot distribution of percentage of households with no internet</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>D3 <span class="ot">=</span> <span class="fu">ggplot</span>(novhcl_data, <span class="fu">aes</span>(<span class="at">x =</span> novhcl_rate)) <span class="sc">+</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..), <span class="at">bins =</span> <span class="dv">50</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">fill =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Percent of Households with No Vehicles Available"</span>,</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Percent of Households with No Vehicles Available"</span>,</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>) </span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(D1, D2, D3, <span class="at">ncol =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+<div class="no-row-height column-margin column-container"><div class="cell-output-display">
+<div id="fig-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="example_analysis_files/figure-html/fig-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: Visualizing the sociodemographic characteristics of the population.</figcaption><p></p>
+</figure>
+</div>
+</div></div></div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Description of the distributions of sociodemographic features.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Fast Food Outlet Density: The distribution is heavily skewed towards low fast food density per 1,000 residents with a few outliers.</p></li>
+<li><p>Percentage of Households with No Internet at Home: A notable proportion of households have no internet access, with the distribution showing multiple peaks around 15-20% and 25-35%.</p></li>
+<li><p>Percentage of Households with No Vehicles Availabile: A notable percentage of households lack vehicle access, with the median falling around 30% and some areas reaching over 60%.</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Click on each tab to see the corresponding panel. The figure caption summarizes some key insights.</p>
+</div>
+</div>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Fast Food Outlet Density and Mortality Rate Correlation</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Home Internet Access and Mortality Rate Correlation</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Vehicle Access and Mortality Rate Correlation</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Relationship between Fast Food Density and Mortality </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fastfd_mortality_data, <span class="fu">aes</span>(<span class="at">x =</span> mort_rate, <span class="at">y =</span> fastfd_rate, <span class="at">color =</span> <span class="fu">as.factor</span>(year))) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">facet_wrap</span>(<span class="sc">~</span>age_group, <span class="at">scales =</span> <span class="st">"free"</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Fast Food Density vs. Mortality Rate"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Stratefied by Age Group"</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Mortality Rate"</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Fast Food Outlet Density per 1,000 Residents"</span>) <span class="sc">+</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="st">"Year"</span>, <span class="at">palette =</span> <span class="st">"Blues"</span>) <span class="sc">+</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>, </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.direction =</span><span class="st">"horizontal"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="example_analysis_files/figure-html/fig-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3: We show the age group trends. Although fast food availability may be linked to poorer health outcomes in theory, these trends are not present in our data. The absence of clear trends and the presence of some extreme outliers prevent us from making any conclusions.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nohhint_mortality_data, <span class="fu">aes</span>(<span class="at">x =</span> mort_rate, <span class="at">y =</span> nohhint_rate, <span class="at">color =</span> <span class="fu">as.factor</span>(year))) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age_group, <span class="at">scales =</span> <span class="st">"free"</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Percent of Households with No Internet vs. Mortality Rate"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Stratefied by Age Group"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Mortality Rate"</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Percent of Households with No Internet at Home"</span>) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="st">"Year"</span>, <span class="at">palette =</span> <span class="st">"Blues"</span>) <span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>, </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.direction =</span><span class="st">"horizontal"</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-4" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="example_analysis_files/figure-html/fig-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4: The plot shows a clear positive trend between mortality rate and lack of home internet access, in particular for ages 15-64. The trend is less pronounced in Infant, 1-14, and 65-84 age groups.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(novhcl_mortality_data, <span class="fu">aes</span>(<span class="at">x =</span> mort_rate, <span class="at">y =</span> novhcl_rate, <span class="at">color =</span> <span class="fu">as.factor</span>(year))) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age_group, <span class="at">scales =</span> <span class="st">"free"</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Percent of Households with No Vehicles Available vs. Mortality Rate"</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Stratefied by Age Group"</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Mortality Rate"</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Percent of Households with No Vehicles Available"</span>) <span class="sc">+</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="st">"Year"</span>, <span class="at">palette =</span> <span class="st">"Blues"</span>) <span class="sc">+</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>, </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.direction =</span><span class="st">"horizontal"</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-5" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="example_analysis_files/figure-html/fig-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;5: These results suggest that there is indeed a positive correlation between lower rates of vehicle availability and higher rates of mortality Again, the trend is less pronounced in Infant, 1-14, and 65-84 age groups.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="spatial-distribution-of-mortality-rates-by-year-and-age-group" class="level3">
+<h3 class="anchored" data-anchor-id="spatial-distribution-of-mortality-rates-by-year-and-age-group">Spatial Distribution of Mortality Rates by Year and Age Group</h3>
+<p><a href="#fig-6">Figure&nbsp;6</a> presents spatial maps of mortality rates across Baltimore from 2011 to 2018 for different age groups. Each row corresponds to an age group, and each column to a year. This figure was previously created for another class. In order to save some time, we added the image to the directory and called it directly.</p>
+<ul>
+<li><p>Geographical Mortality Patterns: Hotspots for mortality consistently appear in certain areas of Baltimore. For example, areas in the northern and central regions exhibit high mortality rates across different age groups. Infant mortality appears to be much higher in a few central regions than in surrounding regions.</p></li>
+<li><p>Temporal Changes: While certain hotspots remain constant, there are areas where mortality fluctuates. Some hotspots, particularly in the infant and 15-24 age groups, appear to have decreasing mortality rates over time. Other hotspots in the 65-84 group, for example, seem to have increasing mortality rates in more recent years.</p></li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">paste0</span>(path,<span class="st">"/mortality_maps.png"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-6" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="mortality_maps.png" class="img-fluid figure-img" width="2250"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;6: Baltimore Mortality Map</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusions" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<p>The findings highlight significant spatial, temporal, and socioeconomic disparities in mortality rates across Baltimore. Key correlations emerged between mortality and the availability of vehicles, internet access, and fast food density, particularly among older age groups.</p>
+<p>The socioeconomic associations with mortality rates can motivate important public health considerations. Although fast food density appears to have little association with mortality rate, there are clear associations between lower rates of home internet access and vehicle availability with higher mortality rate. The trend is less clear in infant and 1-14 age groups, potentially because these populations are less likely to rely on internet and vehicles in their daily life. Furthermore, these populations have very low mortality rates. Primary drivers of youth mortality may be due to issues other than the socioeconomic covariates we tested. Furthermore, in the 65-84 population, the associations are also less apparent. This can be, in part, explained by the fact that health conditions related to old age may have a stronger impact on mortality rates than socioeconomic conditions.</p>
+<p>Some limitations of the study include that this analysis relies on correlation data and cannot make causal inferences. Further research should explore causal pathways and investigate additional socioeconomic factors that may contribute to the observed disparities in mortality.</p>
+<p>This analysis highlights the complex interplay between socioeconomic factors and mortality rates across Baltimore. By focusing on both geographic and temporal trends, we have identified critical areas where public health interventions may be most effective in reducing mortality rates and addressing health disparities.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Useful packages
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Here is a list of core functions that were used in the analysis:</p>
+<p><code>ggplot2</code> : <code>geom_histogram()</code>, <code>geom_jitter()</code>, <code>geom_line()</code></p>
+<p><code>tidyr</code> : <code>pivot_longer()</code></p>
+<p><code>dplyr</code> : <code>group_by()</code>, <code>mutate()</code>, <code>select()</code>, <code>summarise()</code></p>
+</div>
+</div>
+
+
+<!-- -->
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-baltimore_data" class="csl-entry" role="doc-biblioentry">
+Baltimore City. 2024. <span>“Baltimore City Open Data Portal.”</span> <a href="https://data.baltimorecity.gov/search?q=*">https://data.baltimorecity.gov/search?q=*</a>.
+</div>
+<div id="ref-glei2022" class="csl-entry" role="doc-biblioentry">
+Glei, DA, C Lee, and M Weinstein. 2022. <span>“Assessment of Mortality Disparities by Wealth Relative to Other Measures of Socioeconomic Status Among US Adults.”</span> <em>JAMA Network Open</em> 5 (4): e226547. <a href="https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2790904">https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2790904</a>.
+</div>
+<div id="ref-lawrence2024" class="csl-entry" role="doc-biblioentry">
+Lawrence, WR, AM Kucharaska-Newton, and JW Magnani. 2024. <span>“Neighborhood Socioeconomic Disadvantage Across the Life Course and Premature Mortality.”</span> <em>JAMA Network Open</em> 7 (8): e2426243. <a href="https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2822058">https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2822058</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<pre class="markdown" data-shortcodes="false"><code>---
+title: "Example Analysis"
+bibliography: ref.bib
+format:
+  html:
+    # self-contained: true
+    page-layout: full
+    toc: true
+    toc-title: Contents
+    toc-location: left
+    code-fold: true
+    code-overflow: wrap
+    code-tools: true
+    theme: minty
+    cap-location: bottom
+    tbl-cap-location: top
+editor: visual
+execute:
+  error: false
+  warning: false
+  message: false
+  results: asis
+  freeze: auto
+  echo: true
+---
+
+::: {.callout-tip}
+Each figure is preceded by a `&gt; Code` tab which contains all the code to produce the figure. Alternatively, to uncollapse all code, please click on the `&lt;/&gt; CODE` tab and select "SHOW ALL CODE".
+:::
+
+quarto-executable-code-5450563D
+
+```r
+#| output: false 
+#| echo: true
+#| eval: true
+# Load libraries
+library(tidyverse)
+library(jsonlite)
+library(dplyr)
+library(ggplot2)
+library(purrr)
+library(sf)
+library(knitr)
+path = here::here()
+```
+
+## Objective
+
+Several studies have found that socioecomonic disadvantage was associated with premature mortality [@glei2022; @lawrence2024]. This result highlights the need to further study the impacts of socioeconomic status on life course and mortality. In this analysis, we focus on the mortality trends in Baltimore and how various socioeconomic factors, such as vehicle availability, internet access, and fast food density, affect mortality rates across different age groups. The target audience for the analysis includes anyone that might be curious about public health and the mortality trends in Baltimore.
+
+## Data
+
+The data for this analysis was sourced from [Open Baltimore](https://data.baltimorecity.gov/search?q=*.) [@baltimore_data] - a data set from the Baltimore City Health Department. Open Baltimore contains the urls for JSON files containing the data we need. Neighbourhood-specific mortality data for six different age groups (Infant, 1-14, 15-24, 25-44, 45-64, and 65-84) were collected for between 2011 and 2018.
+
+We also downloaded socioeconomic data such as Percent of Households with No Vehicle Available, Percent of Households with No Internet at Home, and Fast Food Outlet Density per 1,000 Residents.
+
+Next, we load the JSON files that were retrieved from the urls in Open Baltimore. 
+
+```{r, eval = F}
+# Load libraries
+library(tidyverse)
+
+# Load raw data
+open_baltimore = read.csv("data/raw/Open Baltimore.csv")
+
+# Filter data to only include rows that contain the word "mortality"
+mortality_data = open_baltimore %&gt;% 
+  filter(grepl("mortality", title, ignore.case = TRUE) |
+         grepl("mortality", description, ignore.case = TRUE))
+
+# Download json mortality data
+mortality_urls = paste0(mortality_data$url, 
+              "/0/query?where=1%3D1&amp;outFields=*&amp;outSR=4326&amp;f=json")
+
+## Helper function to extract ages from the title of each mortality data file
+extract_ages = function(title) {
+  if (!grepl("\\d+-\\d+", title)) {
+    return("infant")
+  }
+  
+  else {
+    return(stringr::str_extract(title, regex("\\d+-\\d+")))
+  }
+}
+
+ages = mapply(extract_ages, mortality_data$title)
+mortality_filenames = paste0("data/json/mortality_", ages, ".json")
+mapply(curl::curl_download, urls, filenames)
+
+# Download the data for (1) percentage of households with no vehicles available, 
+# (2) percentage of households with no internet at home, and (3) fast food 
+# outlet density per 1,000 residents.
+
+socioeconomic_data = open_baltimore %&gt;% 
+  filter(grepl("Percent of Households with No Vehicles Available", title, ignore.case = TRUE) |
+           grepl("Percent of Households with No Internet at Home", title, ignore.case = TRUE) |
+           grepl("Fast Food Outlet Density per 1,000 Residents", title, ignore.case = TRUE))
+
+socioeconomic_urls = paste0(socioeconomic_data$url, 
+              "/0/query?where=1%3D1&amp;outFields=*&amp;outSR=4326&amp;f=json")
+
+socioeconomic_filenames = c("data/json/fastfood.json", "data/json/no_vehicles.json", "data/json/no_internet.json")
+mapply(curl::curl_download, urls, filenames)
+```
+
+After loading the data, we extract important features, such as mortality rate and transform the data to long format for visualization. An example of how this is done is below.
+
+quarto-executable-code-5450563D
+
+```r
+# Function to extract attributes from the JSON structure
+extract_attributes &lt;- function(json_data) {
+  map_df(json_data$features, ~ .x$attributes)
+}
+
+# Read mortality data for each age group
+mortality_infant &lt;- read_json(paste0(path,"/data/json/mortality_infant.json")) %&gt;% extract_attributes()
+mortality_1_14 &lt;- read_json(paste0(path, "/data/json/mortality_1-14.json")) %&gt;% extract_attributes()
+mortality_15_24 &lt;- read_json(paste0(path, "/data/json/mortality_15-24.json")) %&gt;% extract_attributes()
+mortality_25_44 &lt;- read_json(paste0(path, "/data/json/mortality_25-44.json")) %&gt;% extract_attributes()
+mortality_45_64 &lt;- read_json(paste0(path, "/data/json/mortality_45-64.json")) %&gt;% extract_attributes()
+mortality_65_84 &lt;- read_json(paste0(path, "/data/json/mortality_65-84.json")) %&gt;% extract_attributes()
+
+# Read predictor data (e.g., no internet, no vehicles, fast food)
+no_internet &lt;- read_json(paste0(path, "/data/json/no_internet.json")) %&gt;% extract_attributes()
+no_vehicles &lt;- read_json(paste0(path, "/data/json/no_vehicles.json")) %&gt;% extract_attributes()
+fast_food &lt;- read_json(paste0(path, "/data/json/fastfood.json")) %&gt;% extract_attributes()
+
+# Reshape data to long format for plotting
+reshape_to_long = function(data, age_group, prefix, value) {
+  data %&gt;%
+    select(CSA2010, starts_with(prefix)) %&gt;%
+    pivot_longer(cols = starts_with(prefix), names_to = "year", values_to = paste0(value, "_rate")) %&gt;%
+    mutate(year = as.integer(str_extract(year, "\\d+$")),
+           age_group = age_group)
+  # data$mean = rep(mean(data$morality_rate), nrow(data))
+}
+
+mortality_data &lt;- bind_rows(
+  reshape_to_long(mortality_infant, "Infant", "mort1", "mort"),
+  reshape_to_long(mortality_1_14, "1-14", "mort14", "mort"),
+  reshape_to_long(mortality_15_24, "15-24", "mort24", "mort"),
+  reshape_to_long(mortality_25_44, "25-44", "mort44", "mort"),
+  reshape_to_long(mortality_45_64, "45-64", "mort64", "mort"),
+  reshape_to_long(mortality_65_84, "65-84", "mort84", "mort"))
+mortality_data$year = mortality_data$year + 2000
+mean_mortality = mortality_data %&gt;% group_by(age_group, year) %&gt;% summarise(mean_mort = mean(mort_rate, na.rm = TRUE))
+```
+
+After reading in theh JSON files and extracting our desired features, the data dictionary looks like this.
+
+quarto-executable-code-5450563D
+
+```r
+kable(head(mortality_data))
+```
+
+## Results
+
+We used a variety of plots to visualize the relationships between socioeconomic covariates and mortality rates over time and across age groups. Scatter plots and trend lines were used to show correlations, and spatial maps were generated to highlight geographical variations in mortality.
+
+#### Mortality Over Time by Age Group
+
+@fig-1 visualizes mortality rates across multiple age groups (Infant, 1-14, 15-24, 25-44, 45-64, and 65-84) from 2011 to 2018.
+
+We notice that... 
+
+- Infant Mortality: While lower than the older age groups, there are notable spikes in infant mortality, particularly in 2016. 
+
+- Youth (1-14 and 15-24): These groups maintain relatively low mortality rates over time.
+
+- Older Age Groups (45-64 and 65-84): These groups consistently exhibit higher mortality rates compared to younger groups. The mortality rate in these groups shows some fluctuations, but overall, the trend remains stable over time. 
+```{r fig1}
+#| label: fig-1
+#| fig-cap: "Mortality Over Time by Age Group"
+#| eval: true
+#| out-width: "65%"
+
+# Plot mortality rates for each age group over time
+ggplot(mortality_data, aes(x = as.factor(year), y = mort_rate, color = age_group)) +
+  geom_jitter(alpha = 0.7) +
+  geom_line(data = mean_mortality, aes(x = as.factor(year), y = mean_mort, group = age_group), size = 1.5) + 
+  facet_wrap(~age_group, scales = "free", ncol = 2) +
+  theme_minimal() +
+  labs(title = "Mortality Rate Over Time",
+       subtitle = "Stratefied by Age Group",
+       x = "Year",
+       y = "Mortality Rate") +
+  scale_color_brewer("Age Group", palette = "Blues") +
+  theme(legend.position = c(.77,.98), 
+        legend.direction ="horizontal",
+        legend.text = element_text(size = 8),
+        legend.title = element_text(size = 8),
+        strip.background = element_blank(),
+        strip.text = element_blank()) 
+```
+
+#### Socioeconomic Covariates vs. Mortality Rates
+
+In the margins, we show the distributions of each socioeconomic covariate across Baltimore neighbourhoods. The panels below illustrate the relationships between each of the socioeconomic covariates and mortality rates, stratified by age group. For each covariate, we isolated the data to years where mortality data was also reported. 
+
+quarto-executable-code-5450563D
+
+```r
+#| label: fig-2
+#| fig-cap: "Visualizing the sociodemographic characteristics of the population."
+#| column: margin
+
+# Adding covariates to data frame
+fastfd_data = reshape_to_long(fast_food[,1:5], "", "Fastfd", "fastfd") %&gt;% 
+  subset(select = -c(age_group))
+fastfd_data$year = fastfd_data$year + 2000
+fastfd_mortality_data = inner_join(mortality_data, fastfd_data, 
+                                   by = c("CSA2010", "year")) 
+nohhint_data = reshape_to_long(no_internet[,1:4], "", "nohhint", "nohhint") %&gt;% 
+  subset(select = -c(age_group))
+nohhint_data$year = nohhint_data$year + 2000
+nohhint_mortality_data = inner_join(mortality_data, nohhint_data, 
+                                   by = c("CSA2010", "year")) 
+
+novhcl_data = reshape_to_long(no_vehicles[,1:10], "", "novhcl", "novhcl") %&gt;% 
+  subset(select = -c(age_group))
+novhcl_data$year = novhcl_data$year + 2000
+novhcl_mortality_data = inner_join(mortality_data, novhcl_data, 
+                                   by = c("CSA2010", "year")) 
+
+# Plot distribution of fast food density
+D1 = ggplot(fastfd_data, aes(x = fastfd_rate)) +
+  geom_histogram(aes(y=..density..), bins = 50, alpha = 0.5, fill = "blue") +
+  theme_minimal() +
+  labs(title = "Distribution of Fast Food Outlet Density per 1,000 Residents",
+       x = "Fast Food Outlet Density per 1,000 Residents",
+       y = "Frequency") 
+ 
+# Plot distribution of percentage of households with no internet
+D2 = ggplot(nohhint_data, aes(x = nohhint_rate)) +
+  geom_histogram(aes(y=..density..), bins = 50, alpha = 0.5, fill = "blue") +
+  theme_minimal() +
+  labs(title = "Distribution of Percent of Households with No Internet at Home",
+       x = "Percent of Households with No Internet at Home",
+       y = "Frequency") 
+
+# Plot distribution of percentage of households with no internet
+D3 = ggplot(novhcl_data, aes(x = novhcl_rate)) +
+  geom_histogram(aes(y=..density..), bins = 50, alpha = 0.5, fill = "blue") +
+  theme_minimal() +
+  labs(title = "Distribution of Percent of Households with No Vehicles Available",
+       x = "Percent of Households with No Vehicles Available",
+       y = "Frequency") 
+gridExtra::grid.arrange(D1, D2, D3, ncol = 1)
+```
+
+::: {.callout-note collapse="true"}
+## Description of the distributions of sociodemographic features.
+
+- Fast Food Outlet Density: The distribution is heavily skewed towards low fast food density per 1,000 residents with a few outliers.
+
+- Percentage of Households with No Internet at Home: A notable proportion of households have no internet access, with the distribution showing multiple peaks around 15-20% and 25-35%.
+
+- Percentage of Households with No Vehicles Availabile: A notable percentage of households lack vehicle access, with the median falling around 30% and some areas reaching over 60%.
+:::
+
+::: {.callout-tip}
+Click on each tab to see the corresponding panel. The figure caption summarizes some key insights.
+:::
+
+:::: panel-tabset
+#### Fast Food Outlet Density and Mortality Rate Correlation
+quarto-executable-code-5450563D
+
+```r
+#| label: fig-3
+#| fig-cap: "We show the age group trends. Although fast food availability may be linked to poorer health outcomes in theory, these trends are not present in our data. The absence of clear trends and the presence of some extreme outliers prevent us from making any conclusions."
+# Relationship between Fast Food Density and Mortality 
+ggplot(fastfd_mortality_data, aes(x = mort_rate, y = fastfd_rate, color = as.factor(year))) +
+  geom_jitter(alpha = 0.7) +
+ facet_wrap(~age_group, scales = "free", ncol = 2) +
+  theme_minimal() +
+  labs(title = "Fast Food Density vs. Mortality Rate",
+       subtitle = "Stratefied by Age Group",
+       x = "Mortality Rate",
+       y = "Fast Food Outlet Density per 1,000 Residents") +
+  scale_color_brewer("Year", palette = "Blues") +
+  theme(legend.position = "bottom", 
+        legend.direction ="horizontal",
+        legend.text = element_text(size = 8),
+        legend.title = element_text(size = 8),
+        plot.title = element_text(size = 14)) 
+```
+
+#### Home Internet Access and Mortality Rate Correlation
+quarto-executable-code-5450563D
+
+```r
+#| label: fig-4
+#| fig-cap: "The plot shows a clear positive trend between mortality rate and lack of home internet access, in particular for ages 15-64. The trend is less pronounced in Infant, 1-14, and 65-84 age groups."
+
+ggplot(nohhint_mortality_data, aes(x = mort_rate, y = nohhint_rate, color = as.factor(year))) +
+  geom_jitter(alpha = 0.7) +
+  facet_wrap(~age_group, scales = "free", ncol = 2) +
+  theme_minimal() +
+  labs(title = "Percent of Households with No Internet vs. Mortality Rate",
+       subtitle = "Stratefied by Age Group",
+       x = "Mortality Rate",
+       y = "Percent of Households with No Internet at Home") +
+  scale_color_brewer("Year", palette = "Blues") +
+  theme(legend.position = "bottom", 
+        legend.direction ="horizontal",
+        legend.text = element_text(size = 8),
+        legend.title = element_text(size = 8),
+        plot.title = element_text(size = 14)) 
+```
+
+#### Vehicle Access and Mortality Rate Correlation
+quarto-executable-code-5450563D
+
+```r
+#| label: fig-5
+#| fig-cap: "These results suggest that there is indeed a positive correlation between lower rates of vehicle availability and higher rates of mortality  Again, the trend is less pronounced in Infant, 1-14, and 65-84 age groups."
+
+ggplot(novhcl_mortality_data, aes(x = mort_rate, y = novhcl_rate, color = as.factor(year))) +
+  geom_jitter(alpha = 0.7) +
+  facet_wrap(~age_group, scales = "free", ncol = 2) +
+  theme_minimal() +
+  labs(title = "Percent of Households with No Vehicles Available vs. Mortality Rate",
+       subtitle = "Stratefied by Age Group",
+       x = "Mortality Rate",
+       y = "Percent of Households with No Vehicles Available") +
+  scale_color_brewer("Year", palette = "Blues") +
+  theme(legend.position = "bottom", 
+        legend.direction ="horizontal",
+        legend.text = element_text(size = 8),
+        legend.title = element_text(size = 8),
+        plot.title = element_text(size = 14)) 
+```
+::::
+
+### Spatial Distribution of Mortality Rates by Year and Age Group
+
+@fig-6 presents spatial maps of mortality rates across Baltimore from 2011 to 2018 for different age groups. Each row corresponds to an age group, and each column to a year. This figure was previously created for another class. In order to save some time, we added the image to the directory and called it directly.
+
+- Geographical Mortality Patterns: Hotspots for mortality consistently appear in certain areas of Baltimore. For example, areas in the northern and central regions exhibit high mortality rates across different age groups. Infant mortality appears to be much higher in a few central regions than in surrounding regions.
+
+- Temporal Changes: While certain hotspots remain constant, there are areas where mortality fluctuates. Some hotspots, particularly in the infant and 15-24 age groups, appear to have decreasing mortality rates over time. Other hotspots in the 65-84 group, for example, seem to have increasing mortality rates in more recent years.
+
+
+```{r fig9}
+#| label: fig-6
+#| fig-cap: "Baltimore Mortality Map"
+#| eval: true
+knitr::include_graphics(paste0(path,"/mortality_maps.png"))
+```
+
+## Conclusions
+
+The findings highlight significant spatial, temporal, and socioeconomic disparities in mortality rates across Baltimore. Key correlations emerged between mortality and the availability of vehicles, internet access, and fast food density, particularly among older age groups.
+
+The socioeconomic associations with mortality rates can motivate important public health considerations. Although fast food density appears to have little association with mortality rate, there are clear associations between lower rates of home internet access and vehicle availability with higher mortality rate. The trend is less clear in infant and 1-14 age groups, potentially because these populations are less likely to rely on internet and vehicles in their daily life. Furthermore, these populations have very low mortality rates. Primary drivers of youth mortality may be due to issues other than the socioeconomic covariates we tested. Furthermore, in the 65-84 population, the associations are also less apparent. This can be, in part, explained by the fact that health conditions related to old age may have a stronger impact on mortality rates than socioeconomic conditions.
+
+Some limitations of the study include that this analysis relies on correlation data and cannot make causal inferences. Further research should explore causal pathways and investigate additional socioeconomic factors that may contribute to the observed disparities in mortality.
+
+This analysis highlights the complex interplay between socioeconomic factors and mortality rates across Baltimore. By focusing on both geographic and temporal trends, we have identified critical areas where public health interventions may be most effective in reducing mortality rates and addressing health disparities.
+
+::: {.callout-tip}
+## Useful packages
+
+Here is a list of core functions that were used in the analysis: 
+
+`ggplot2` : `geom_histogram()`, `geom_jitter()`, `geom_line()`
+
+`tidyr` : `pivot_longer()`
+
+`dplyr` : `group_by()`, `mutate()`, `select()`, `summarise()`
+:::</code></pre>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+</body></html>

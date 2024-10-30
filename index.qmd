@@ -1,0 +1,10 @@
+---
+title: "Angela Zhao"
+image: spherical_cow.GIF
+about:
+  template: solana
+---
+
+Angela Zhao is a first year PhD student in Biostatistics at Johns Hopkins University. Her favourite animal is the spherical cow. When reality gets too messy, assume everything is perfectly round and frictionless.
+
+*Spherical cow image retrieved from [Wikipedia](https://en.wikipedia.org/wiki/Spherical_cow) on October 27th, 2024.*

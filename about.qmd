@@ -1,0 +1,23 @@
+---
+title: "About"
+---
+
+## Education
+
+**Johns Hopkins University**\
+PhD in Biostatistics (In progress)
+
+ScM in Biostatistics (2024)
+
+**McGill University**\
+BS in Joint Honours Computer Science and Biology, Minor in Mathematics (2022)
+
+## Research Interests
+
+-   Functional data analysis/time-series modeling
+
+-   Domain-specific applications to wearable device and imaging data
+
+## Hobbies
+
+-   Bouldering, stand-up comedy, and playing classical music (fun fact: she taught piano for 4 years).
